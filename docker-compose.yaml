@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  api:
+    build:
+      context: node
+    container_name: api
+    networks:
+      - api-network
+    tty: true
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+
+  db:
+    build:
+      context: mongo
+    container_name: db
+    restart: always
+    user:  "root"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - api-network
+    tty: true
+    ports:
+      - 27017:27017
+
+networks: 
+  api-network:
+    driver: bridge
+
+volumes:
+  mongodb:
+  mongodb_config:
