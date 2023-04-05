@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const connectionString = '';
+const connectionString = 'mongodb://root:root@localhost:27017';
 const client = new MongoClient(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -8,13 +8,13 @@ const client = new MongoClient(connectionString, {
 let dbConnection;
 
 module.exports = {
-  connectToServer: (callback) => {
-    client.connect((err, db) => {
-      if (err || !db) return callback(err);
-      dbConnection = db.db('todo-list');
+  connectToServer: async () => {
+    try {
+      dbConnection = await client.connect();
       console.log('Connected to MongoDB');
-      return callback();
-    });
+    } catch(e) {
+      console.error(e);
+    }
   },
-  getDb: () => dbConnection,
+  getDb: () => dbConnection.db('todo-list'),
 };
