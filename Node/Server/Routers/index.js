@@ -1,3 +1,3 @@
-const routePeople = require('./People');
+const routeTodo = require('./Todo');
 
-module.exports = [ routePeople ];
+module.exports = [ routeTodo ];

@@ -7,7 +7,7 @@ services:
       context: node
     container_name: api
     networks:
-      - api-network
+      - todo-list-network
     tty: true
     depends_on:
       - db
@@ -24,18 +24,18 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
     volumes:
-      - mongodb:/data/db
-      - mongodb_config:/data/configdb
+      - todo-list-mongodb:/data/db
+      - todo-list-mongodb-config:/data/configdb
     networks:
-      - api-network
+      - todo-list-network
     tty: true
     ports:
       - 27017:27017
 
 networks: 
-  api-network:
+  todo-list-network:
     driver: bridge
 
 volumes:
-  mongodb:
-  mongodb_config:
+  todo-list-mongodb:
+  todo-list-mongodb-config:
