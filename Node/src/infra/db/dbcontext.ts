@@ -26,7 +26,9 @@ class DbContext {
       dotenv.config()
       this._connectionString = process.env.CONN_MONGO
       if (this._connectionString !== undefined)
-        this._client = new MongoClient(this._connectionString)  
+        this._client = new MongoClient(this._connectionString)
+
+      console.log(this._connectionString)
     }
   }
 
