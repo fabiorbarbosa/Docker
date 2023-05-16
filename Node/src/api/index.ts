@@ -1,16 +1,10 @@
-import Todo from './controllers/todo'
-import iController from './models/iController'
+import TodoController from "./controllers/TodoController"
+import IController from "./models/IController"
 
-class Api {
-  private _controllers: Array<iController> = []
-
-  constructor() {
-    this._controllers.push(new Todo())
-  }
-
-  public get controllers(): Array<iController> {
-    return this._controllers
-  }
+interface TYPE {
+  controller: object
 }
 
-export default Api
+const TYPES = [{ controller: TodoController }] as Array<TYPE>
+
+export default TYPES

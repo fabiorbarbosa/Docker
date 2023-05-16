@@ -1,6 +1,9 @@
+import 'reflect-metadata'
 import express from 'express'
-import Api from './api'
-import iController from './api/models/iController'
+import TYPES from './api'
+import { container } from 'tsyringe'
+import IController from './api/models/IController'
+import TodoController from './api/controllers/TodoController'
 
 class Server {
   public app: express.Application
@@ -9,9 +12,8 @@ class Server {
   constructor() {
     this.app = express()
     this.port = process.env.PORT ?? '3000'
-    const api = new Api()
     this.initializeMiddlewares()
-    this.initializeControllers(api.controllers)
+    this.initializeControllers()
   }
 
   private initializeMiddlewares() {
@@ -19,8 +21,9 @@ class Server {
     this.app.set('json spaces', 2)
   }
 
-  private initializeControllers(controllers: Array<iController>) {
-    controllers.forEach((controller) => {
+  private initializeControllers() {
+    TYPES.forEach((type) => {
+      const controller = container.resolve(TodoController) as IController
       this.app.use('/', controller.router)
     })
   }

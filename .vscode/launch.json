@@ -11,14 +11,12 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/Node/index.js"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Node",
-      "program": "${workspaceFolder}/node/index.ts",
-      "outFiles":["${workspaceFolder}/node/dist/**/*.js"]
+      "envFile": "${workspaceFolder}/Node/.env",
+      "program": "${workspaceFolder}/Node/index.ts",
+      "preLaunchTask": "tsc: build - Node/tsconfig.json",
+      "outFiles": [
+        "${workspaceFolder}/Node/dist/**/*.js"
+      ]
     }
   ]
 }
