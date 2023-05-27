@@ -1,11 +1,11 @@
 import dotenv from 'dotenv'
-dotenv.config()
+dotenv.config({
+  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env"
+})
 import 'reflect-metadata'
 import Server from './src/Server'
-import { env } from 'node:process';
 
-// console.log(env)
-console.log(process.env)
+console.log(process.env.NODE_ENV)
 
 const app = new Server()
 

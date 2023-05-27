@@ -1,9 +1,8 @@
 import 'reflect-metadata'
 import express from 'express'
-import TYPES from './api'
+import { TYPES, TYPE } from './api'
 import { container } from 'tsyringe'
 import IController from './api/models/IController'
-import TodoController from './api/controllers/TodoController'
 
 class Server {
   public app: express.Application
@@ -22,8 +21,9 @@ class Server {
   }
 
   private initializeControllers() {
-    TYPES.forEach((type) => {
-      const controller = container.resolve(TodoController) as IController
+    TYPES.forEach((type: TYPE) => {
+      console.log(type)
+      const controller = container.resolve(type.controller) as IController
       this.app.use('/', controller.router)
     })
   }

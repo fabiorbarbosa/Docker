@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { autoInjectable } from 'tsyringe'
 import TodoService from '../services/TodoService'
 import IController from '../models/IController'
+import { authorize } from '../middlewares/Authorize'
 
 @autoInjectable()
 class TodoController implements IController {
@@ -15,13 +16,13 @@ class TodoController implements IController {
   }
 
   private initializeRoutes(): void {
-    this.router.get(this.path, (_req, _res) => this.getAll(_req, _res))
-    this.router.post(this.path, (_req, _res) => this.post(_req, _res))
+    this.router.get(this.path, authorize, (_req, _res) => this.getAll(_req, _res))
+    this.router.post(this.path, authorize, (_req, _res) => this.post(_req, _res))
   }
 
   async getAll(request: Request, response: Response) {
     const todos = await this._todoService.getAll()
-    return response.send(todos).status(todos.length > 0 ? 200 : 404)
+    return response.status(todos.length > 0 ? 200 : 204).send(todos)
   }
 
   async post(request: Request, response: Response) {
