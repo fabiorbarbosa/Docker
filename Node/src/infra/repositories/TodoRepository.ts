@@ -7,8 +7,6 @@ import { ObjectId } from 'mongodb'
 export default class TodoRepository {
   private readonly _dbContext: DbContext
 
-  private readonly _objectId = ObjectId
-
   constructor(dbContext: DbContext) {
     this._dbContext = dbContext
   }
