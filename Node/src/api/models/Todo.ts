@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb"
+
 interface Todo {
-  _id: string
+  _id: ObjectId
   todo: string
   completed: boolean
 }

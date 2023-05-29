@@ -12,4 +12,8 @@ export default class TodoService {
   async getAll() {
     return await this._todoRepository.getAll()
   }
+
+  async getById(_id: string) {
+    return await this._todoRepository.getById(_id)
+  }
 }
